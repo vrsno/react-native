@@ -12,7 +12,8 @@ import {
 import { useEffect, useState } from "react";
 import { getLatestGames } from "../lib/metacritic";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { GameCard } from "./GameCard";
+import { AnimatedGameCard, GameCard } from "./GameCard";
+import { Logo } from "../components/Logo";
 
 export function Main() {
   const [games, setGames] = useState([]);
@@ -26,14 +27,20 @@ export function Main() {
 
   return (
     <View style={{ paddingTop: insets.top, paddingBottom: insets.bottom }}>
+      <View style={{ marginBottom: 20 }}>
+        <Logo />
+      </View>
+
       {games.length === 0 ? (
         <ActivityIndicator color={"white"} size={"large"} />
       ) : (
-        <ScrollView>
-          {games.map((game) => (
-            <GameCard key={game.slug} game={game} />
-          ))}
-        </ScrollView>
+        <FlatList
+          data={games}
+          keyExtractor={(game) => game.slug}
+          renderItem={({ item, index }) => (
+            <AnimatedGameCard game={item} index={index} />
+          )}
+        ></FlatList>
       )}
     </View>
   );
