@@ -2,7 +2,7 @@
 module.exports = {
   extends: ["expo", "plugin:prettier/recommended"],
 
-  plugins: ["prettier"], // Correcto
+  pluging: ["prettier"], // Correcto
 
   rules: {
     "prettier/prettier": ["error", { endOfLine: "lf" }],
